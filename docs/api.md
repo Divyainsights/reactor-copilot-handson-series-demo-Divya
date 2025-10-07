@@ -71,7 +71,20 @@ Creates a new order with validation.
 ### 2. Get All Orders
 **GET** `/orders`
 
-Retrieves all orders.
+Retrieves all orders with optional filtering.
+
+#### Query Parameters
+- `customerId` (string, optional): Filter orders by customer ID (partial match, case-insensitive)
+- `status` (string, optional): Filter orders by status (exact match, case-insensitive)
+- `startDate` (string, optional): Filter orders created on or after this date (YYYY-MM-DD format)
+- `endDate` (string, optional): Filter orders created on or before this date (YYYY-MM-DD format)
+
+#### Examples
+- Get all orders: `GET /orders`
+- Filter by customer: `GET /orders?customerId=customer-123`
+- Filter by status: `GET /orders?status=pending`
+- Filter by date range: `GET /orders?startDate=2024-01-01&endDate=2024-12-31`
+- Combined filters: `GET /orders?customerId=customer-123&status=pending`
 
 #### Response
 **Success (200)**

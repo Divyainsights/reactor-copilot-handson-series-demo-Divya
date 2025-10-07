@@ -66,6 +66,18 @@
   border-bottom: none;
 }
 
+.items-cell {
+  max-width: 200px;
+}
+
+.items-list {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  color: #666;
+}
+
 .status-pending {
   background-color: #fff3cd;
   color: #856404;

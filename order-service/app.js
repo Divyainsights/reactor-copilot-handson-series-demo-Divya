@@ -86,10 +86,48 @@ app.post('/orders', (req, res) => {
   }
 });
 
-// Get all orders (GET /orders)
+// Get all orders with optional filtering (GET /orders)
 app.get('/orders', (req, res) => {
   try {
-    res.json(orders);
+    let filteredOrders = [...orders];
+
+    // Filter by customer ID
+    if (req.query.customerId) {
+      filteredOrders = filteredOrders.filter(order => 
+        order.customerId.toLowerCase().includes(req.query.customerId.toLowerCase())
+      );
+    }
+
+    // Filter by status
+    if (req.query.status) {
+      filteredOrders = filteredOrders.filter(order => 
+        order.status.toLowerCase() === req.query.status.toLowerCase()
+      );
+    }
+
+    // Filter by date range
+    if (req.query.startDate || req.query.endDate) {
+      filteredOrders = filteredOrders.filter(order => {
+        const orderDate = new Date(order.createdAt);
+        let include = true;
+
+        if (req.query.startDate) {
+          const startDate = new Date(req.query.startDate);
+          include = include && orderDate >= startDate;
+        }
+
+        if (req.query.endDate) {
+          const endDate = new Date(req.query.endDate);
+          // Add 1 day to include the entire end date
+          endDate.setDate(endDate.getDate() + 1);
+          include = include && orderDate < endDate;
+        }
+
+        return include;
+      });
+    }
+
+    res.json(filteredOrders);
   } catch (error) {
     res.status(500).json({
       error: 'Internal server error',

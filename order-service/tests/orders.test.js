@@ -147,6 +147,95 @@ describe('Order Management API', () => {
       expect(response.body[0].customerId).toBe('customer-1');
       expect(response.body[1].customerId).toBe('customer-2');
     });
+
+    it('should filter orders by customer ID', async () => {
+      // Create test orders
+      await request(app)
+        .post('/orders')
+        .send({
+          customerId: 'customer-123',
+          items: [{ name: 'Product A', quantity: 1, price: 10.00 }]
+        });
+
+      await request(app)
+        .post('/orders')
+        .send({
+          customerId: 'customer-456',
+          items: [{ name: 'Product B', quantity: 2, price: 15.00 }]
+        });
+
+      const response = await request(app)
+        .get('/orders?customerId=customer-123')
+        .expect(200);
+
+      expect(response.body).toHaveLength(1);
+      expect(response.body[0].customerId).toBe('customer-123');
+    });
+
+    it('should filter orders by status', async () => {
+      // Create test orders with different statuses
+      await request(app)
+        .post('/orders')
+        .send({
+          customerId: 'customer-1',
+          items: [{ name: 'Product A', quantity: 1, price: 10.00 }],
+          status: 'pending'
+        });
+
+      await request(app)
+        .post('/orders')
+        .send({
+          customerId: 'customer-2',
+          items: [{ name: 'Product B', quantity: 2, price: 15.00 }],
+          status: 'processing'
+        });
+
+      const response = await request(app)
+        .get('/orders?status=processing')
+        .expect(200);
+
+      expect(response.body).toHaveLength(1);
+      expect(response.body[0].status).toBe('processing');
+    });
+
+    it('should filter orders by date range', async () => {
+      // Create test order
+      const orderResponse = await request(app)
+        .post('/orders')
+        .send({
+          customerId: 'customer-1',
+          items: [{ name: 'Product A', quantity: 1, price: 10.00 }]
+        });
+
+      const orderDate = new Date(orderResponse.body.createdAt);
+      const startDate = new Date(orderDate);
+      startDate.setDate(startDate.getDate() - 1); // 1 day before
+      const endDate = new Date(orderDate);
+      endDate.setDate(endDate.getDate() + 1); // 1 day after
+
+      const response = await request(app)
+        .get(`/orders?startDate=${startDate.toISOString().split('T')[0]}&endDate=${endDate.toISOString().split('T')[0]}`)
+        .expect(200);
+
+      expect(response.body).toHaveLength(1);
+      expect(response.body[0].id).toBe(orderResponse.body.id);
+    });
+
+    it('should return empty array when no orders match filters', async () => {
+      // Create a test order
+      await request(app)
+        .post('/orders')
+        .send({
+          customerId: 'customer-123',
+          items: [{ name: 'Product A', quantity: 1, price: 10.00 }]
+        });
+
+      const response = await request(app)
+        .get('/orders?customerId=nonexistent-customer')
+        .expect(200);
+
+      expect(response.body).toEqual([]);
+    });
   });
 
   describe('GET /orders/:id', () => {

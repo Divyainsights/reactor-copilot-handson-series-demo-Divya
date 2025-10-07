@@ -1,0 +1,139 @@
+.order-search-container {
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.search-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  align-items: end;
+}
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.search-field label {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.search-input,
+.search-select {
+  padding: 10px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background-color: white;
+}
+
+.search-input:focus,
+.search-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.search-select {
+  cursor: pointer;
+}
+
+.search-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.search-button:active {
+  background-color: #004085;
+  transform: translateY(0);
+}
+
+.clear-button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.clear-button:hover {
+  background-color: #545b62;
+  transform: translateY(-1px);
+}
+
+.clear-button:active {
+  background-color: #495057;
+  transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .order-search-container {
+    padding: 15px;
+  }
+
+  .search-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .search-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-button,
+  .clear-button {
+    width: 100%;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-search-container {
+    padding: 12px;
+  }
+
+  .search-input,
+  .search-select {
+    padding: 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
