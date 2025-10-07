@@ -9,12 +9,19 @@ The order management system consists of two main components:
 ## Components
 ### Client
 The client is located in the `order-webapp` directory. It is built using React.js and provides a user interface for managing orders. Key features include:
+- **Order Search/Filter**: Search and filter orders by:
+  - Customer ID (partial match, case-insensitive)
+  - Order Status (exact match from dropdown)
+  - Date Range (start date and/or end date)
+  - Clear filters functionality to reset search
 - **Order Listing**: View all orders in a comprehensive table format with the following information:
   - Order Number (ID)
   - Customer Number (ID)
+  - Items (displays item names with quantities)
   - Item Count (dynamically calculated from order items)
   - Total amount
   - Order Status (with color-coded status indicators)
+  - Created Date
 - **Refresh Functionality**: Refresh button to fetch the latest order data
 - **Responsive Design**: Mobile-friendly interface that adapts to different screen sizes
 - **Error Handling**: Graceful handling of API errors with retry functionality
