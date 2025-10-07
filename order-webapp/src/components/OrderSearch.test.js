@@ -15,7 +15,7 @@ describe('OrderSearch Component', () => {
   test('renders search form with all fields', () => {
     render(<OrderSearch onSearch={mockOnSearch} onClear={mockOnClear} />);
 
-    expect(screen.getByLabelText('Customer ID')).toBeInTheDocument();
+    expect(screen.getByLabelText('Customer Number')).toBeInTheDocument();
     expect(screen.getByLabelText('Status')).toBeInTheDocument();
     expect(screen.getByLabelText('Start Date')).toBeInTheDocument();
     expect(screen.getByLabelText('End Date')).toBeInTheDocument();
@@ -25,7 +25,7 @@ describe('OrderSearch Component', () => {
   test('handles form submission with search filters', () => {
     render(<OrderSearch onSearch={mockOnSearch} onClear={mockOnClear} />);
 
-    const customerIdInput = screen.getByLabelText('Customer ID');
+    const customerIdInput = screen.getByLabelText('Customer Number');
     const statusSelect = screen.getByLabelText('Status');
     const searchButton = screen.getByText('Search Orders');
 
@@ -42,7 +42,7 @@ describe('OrderSearch Component', () => {
   test('shows clear button when filters are active', () => {
     render(<OrderSearch onSearch={mockOnSearch} onClear={mockOnClear} />);
 
-    const customerIdInput = screen.getByLabelText('Customer ID');
+    const customerIdInput = screen.getByLabelText('Customer Number');
     fireEvent.change(customerIdInput, { target: { value: 'customer-123' } });
 
     expect(screen.getByText('Clear Filters')).toBeInTheDocument();
@@ -51,7 +51,7 @@ describe('OrderSearch Component', () => {
   test('handles clear filters', () => {
     render(<OrderSearch onSearch={mockOnSearch} onClear={mockOnClear} />);
 
-    const customerIdInput = screen.getByLabelText('Customer ID');
+    const customerIdInput = screen.getByLabelText('Customer Number');
     fireEvent.change(customerIdInput, { target: { value: 'customer-123' } });
 
     const clearButton = screen.getByText('Clear Filters');
@@ -64,7 +64,7 @@ describe('OrderSearch Component', () => {
   test('filters out empty values when searching', () => {
     render(<OrderSearch onSearch={mockOnSearch} onClear={mockOnClear} />);
 
-    const customerIdInput = screen.getByLabelText('Customer ID');
+    const customerIdInput = screen.getByLabelText('Customer Number');
     const statusSelect = screen.getByLabelText('Status');
     const searchButton = screen.getByText('Search Orders');
 

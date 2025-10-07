@@ -60,7 +60,7 @@ describe('OrderList Component', () => {
 
     // Check table headers
     expect(screen.getByText('Order Number')).toBeInTheDocument();
-    expect(screen.getByText('Customer Number')).toBeInTheDocument();
+    expect(screen.getAllByText('Customer Number')).toHaveLength(2); // One in search form, one in table header
     expect(screen.getByText('Item Count')).toBeInTheDocument();
     expect(screen.getByText('Total')).toBeInTheDocument();
     expect(screen.getByText('Order Status')).toBeInTheDocument();

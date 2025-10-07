@@ -57,14 +57,14 @@ const OrderSearch = ({ onSearch, onClear }) => {
       <form onSubmit={handleSearch} className="order-search-form">
         <div className="search-row">
           <div className="search-field">
-            <label htmlFor="customerId">Customer ID</label>
+            <label htmlFor="customerId">Customer Number</label>
             <input
               type="text"
               id="customerId"
               name="customerId"
               value={filters.customerId}
               onChange={handleInputChange}
-              placeholder="Enter customer ID"
+              placeholder="Enter customer number"
               className="search-input"
             />
           </div>
